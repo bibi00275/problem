@@ -1,0 +1,45 @@
+package com.interview.aveva;
+
+import java.util.Arrays;
+
+public class CommonCharacters {
+
+    public static int countCommonCharacters(String[] strs) {
+        if (strs.length == 0) {
+            return 0;
+        }
+
+        // Initialize all characters as common
+        boolean[] common = new boolean[26];
+        Arrays.fill(common,true);
+
+        // Iterate through each character in the shortest string
+        for (char c : strs[0].toCharArray()) {
+            int charIndex = c - 'a';
+
+            // Check if the character exists in all other strings
+            for (int i = 1; i < strs.length; i++) {
+                if (!strs[i].contains(String.valueOf(c))) {
+                    common[charIndex] = false;
+                    break; // No need to check further if not present in one string
+                }
+            }
+        }
+
+        // Count the number of characters still marked as common
+        int count = 0;
+        for (boolean isCommon : common) {
+            if (isCommon) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        String[] strs = {"apple", "apricot", "banana"};
+        int commonChars = countCommonCharacters(strs);
+        System.out.println("Number of common characters: " + commonChars); // Output: 2 (a and p)
+    }
+}
