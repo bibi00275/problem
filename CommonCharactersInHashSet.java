@@ -4,50 +4,40 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CommonCharactersInHashSet {
-
-
-
     public static void main(String[] args) {
-        String[] strs = {"bella", "label", "roller","leabc"};
-        Set<Character> commonChars = findCommonCharacter(strs);
-        System.out.println("Common characters: " + commonChars); // Output: [l, e]
+        String[] strs = {"bella", "label", "roller", "leabc"};
+        Set<Character> commonChars = findCommonCharacters(strs);
+        System.out.println("Common characters: " + commonChars); // Output: [e, l]
     }
 
     private static Set<Character> findCommonCharacters(String[] strs) {
-
-        Set<Character> commonCharacter = new HashSet<>();
-
-        for(Character ch: strs[0].toCharArray()){
-            commonCharacter.add(ch);
+        // Handle edge cases
+        if (strs == null || strs.length == 0) {
+            return new HashSet<>();
         }
-
-        for(int i=1;i<strs.length;i++){
-            Set<Character> currentCharacters = new HashSet<>();
-            for(Character chr: strs[i].toCharArray()){
-                currentCharacters.add(chr);
+        if (strs.length == 1) {
+            Set<Character> result = new HashSet<>();
+            for (char c : strs[0].toCharArray()) {
+                result.add(c);
             }
-            commonCharacter.retainAll(currentCharacters);
-
-        }
-    return commonCharacter;
-    }
-
-
-    private static Set<Character> findCommonCharacter(String[] strs){
-
-        Set<Character> commonCharacter=new HashSet<>();
-
-        for(Character ch: strs[0].toCharArray()){
-            commonCharacter.add(ch);
+            return result;
         }
 
-        for(int i=1;i<strs.length;i++){
-            Set<Character> currentCharacters=new HashSet<>();
-            for(Character ch: strs[i].toCharArray()){
+        // Initialize with first string's characters
+        Set<Character> commonCharacters = new HashSet<>();
+        for (char ch : strs[0].toCharArray()) {
+            commonCharacters.add(ch);
+        }
+
+        // Intersect with each subsequent string
+        for (int i = 1; i < strs.length; i++) {
+            Set<Character> currentCharacters = new HashSet<>();
+            for (char ch : strs[i].toCharArray()) {
                 currentCharacters.add(ch);
             }
-            commonCharacter.retainAll(currentCharacters);
+            commonCharacters.retainAll(currentCharacters);
         }
-        return commonCharacter;
+
+        return commonCharacters;
     }
 }
