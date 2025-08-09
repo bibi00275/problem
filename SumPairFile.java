@@ -14,6 +14,7 @@ public class SumPairFile {
 
     public static List<List<Integer>> findPairSum(int[] arr, int target) {
         List<List<Integer>> pairs = new ArrayList<>();
+        Arrays.sort(arr);
         int left = 0, right = arr.length - 1;
 
         while (left < right) {
@@ -32,3 +33,4 @@ public class SumPairFile {
         return pairs;
     }
 }
+
